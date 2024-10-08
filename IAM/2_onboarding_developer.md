@@ -138,9 +138,6 @@ Create a customer-managed IAM policy with specific AWS service access.
 
 **Note**: Adjust the regions (`aws:RequestedRegion`) as per your requirements.
 
-**Screenshot Suggestion**: Capture the JSON policy editor with the policy pasted.
-- **Filename**: `step4_create_policy.png`
-
 ---
 
 ## Step 5: Attach Policy to Group
@@ -155,7 +152,7 @@ Attach the custom IAM policy to the `uideveloper` group.
 4. Search for `uideveloper-policy` and attach it.
 
 **Screenshot Suggestion**: Show the policy being attached to the group.
-- **Filename**: `step5_attach_policy.png`
+- **Filename**: `step5_attach_policy.png` also did step4 permissions attach policies photo
 
 ---
 
