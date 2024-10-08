@@ -24,7 +24,7 @@ Create a new IAM group for UI developers.
 
 **Action**: In the AWS IAM console, navigate to **User Groups** and click **Create group**.
 
-![Create_Group](images/step1_create_group.png)
+![Create_Group](/images/step1_create_group.png)
 
 ---
 
@@ -40,7 +40,7 @@ Create a new IAM user for the developer.
 
 **Action**: Go to **Users** in the IAM console and click **Add user**.
 
-![Create_Group](images/step2_create_user.png)
+![Create_Group](/images/step2_create_user.png)
 
 **Note**: Provide the following details to Jack securely:
 
@@ -56,7 +56,7 @@ Add the user `jack` to the `uideveloper` group.
 
 **Action**: After creating the user, on the **Add user to group** step, select the `uideveloper` group.
 
-![Create_Group](images/step3_add_user_to_group.png)
+![Create_Group](/images/step3_add_user_to_group.png)
 
 ---
 
@@ -144,12 +144,12 @@ Attach the custom IAM policy to the `uideveloper` group.
 1. In the IAM console, go to **User Groups**.
 2. Select the `uideveloper` group.
 3. Under the **Permissions** tab, click **Add permissions** -> **Attach policies**.
-![Attach_Policy](images/step4_attach_policy.png)
-4. Search for `uideveloper-policy` and attach it.
-![Attach_Policy](images/step5_attach_policy.png)
 
-**Screenshot Suggestion**: Show the policy being attached to the group.
-- **Filename**: `step5_attach_policy.png` also did step4 permissions attach policies photo
+![Attach_Policy](/images/step4_attach_policy.png)
+
+5. Search for `uideveloper-policy` and attach it.
+
+![Attach_Policy](/images/step5_attach_policy.png)
 
 ---
 
@@ -169,9 +169,9 @@ As the user `jack`, log in to the CloudBinary AWS account and validate access.
 
 **Screenshot Suggestion**:
 
-![Attach_Policy](images/step6_validate_access.png)
+![Attach_Policy](/images/step6_validate_access.png)
 
-![Attach_Policy](images/step6_access_denied.png)
+![Attach_Policy](/images/step6_access_denied.png)
 
 ---
 
