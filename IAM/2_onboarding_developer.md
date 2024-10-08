@@ -2,8 +2,6 @@
 
 This document provides a step-by-step guide to onboard a new developer (e.g., **Jack**) and grant them specific AWS service access within the **CloudBinary** AWS account. The process includes creating a user group, adding the user, creating and attaching a custom IAM policy, and validating access.
 
-**Suggested Filename**: `onboarding_developer.md`
-
 ---
 
 ## Table of Contents
@@ -26,8 +24,7 @@ Create a new IAM group for UI developers.
 
 **Action**: In the AWS IAM console, navigate to **User Groups** and click **Create group**.
 
-**Screenshot Suggestion**: Capture the "Create group" page showing the group name entered.
-- **Filename**: `step1_create_group.png`
+![Create_Group](images/step1_create_group.png)
 
 ---
 
@@ -43,8 +40,7 @@ Create a new IAM user for the developer.
 
 **Action**: Go to **Users** in the IAM console and click **Add user**.
 
-**Screenshot Suggestion**: Show the "Add user" page with the details filled in.
-- **Filename**: `step2_create_user.png`
+![Create_Group](images/step2_create_user.png)
 
 **Note**: Provide the following details to Jack securely:
 
@@ -60,8 +56,7 @@ Add the user `jack` to the `uideveloper` group.
 
 **Action**: After creating the user, on the **Add user to group** step, select the `uideveloper` group.
 
-**Screenshot Suggestion**: Show the user being added to the group.
-- **Filename**: `step3_add_user_to_group.png`
+![Create_Group](images/step3_add_user_to_group.png)
 
 ---
 
@@ -149,7 +144,9 @@ Attach the custom IAM policy to the `uideveloper` group.
 1. In the IAM console, go to **User Groups**.
 2. Select the `uideveloper` group.
 3. Under the **Permissions** tab, click **Add permissions** -> **Attach policies**.
+![Attach_Policy](images/step4_attach_policy.png)
 4. Search for `uideveloper-policy` and attach it.
+![Attach_Policy](images/step5_attach_policy.png)
 
 **Screenshot Suggestion**: Show the policy being attached to the group.
 - **Filename**: `step5_attach_policy.png` also did step4 permissions attach policies photo
@@ -172,11 +169,9 @@ As the user `jack`, log in to the CloudBinary AWS account and validate access.
 
 **Screenshot Suggestion**:
 
-- **Access Granted**: Capture the AWS console showing successful access to an allowed service.
-  - **Filename**: `step6_validate_access.png`
+![Attach_Policy](images/step6_validate_access.png)
 
-- **Access Denied**: (Optional) Capture the error message when attempting to access a disallowed service or region.
-  - **Filename**: `step6_access_denied.png`
+![Attach_Policy](images/step6_access_denied.png)
 
 ---
 
@@ -186,15 +181,6 @@ As the user `jack`, log in to the CloudBinary AWS account and validate access.
 - **Region Restrictions**: The policy limits access to specific regions. Modify the `aws:RequestedRegion` array if you need to allow access to additional regions.
 - **AWS Gov and China Regions**: Access to AWS GovCloud and China regions requires separate accounts and compliance with additional regulations.
 - **Policy Updates**: If additional services are needed in the future, update the IAM policy accordingly.
-
-**Screenshot Storage**:
-
-- Store all screenshots in a folder named `images` within your repository.
-- Reference images in the markdown using relative paths:
-
-  ```markdown
-  ![Create Group](images/step1_create_group.png)
-  ```
 
 ---
 
