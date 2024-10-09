@@ -1,3 +1,7 @@
+Certainly! Here is the documentation with the updated image names and proper markdown links for the images, as well as the steps listed in the correct order:
+
+---
+
 # Creating a VPC Using AWS VPC and More
 
 This documentation explains how to create a Virtual Private Cloud (VPC) in AWS using the **"VPC and More"** option under the **Resources to Create** setting. This setup will involve creating public and private subnets, NAT gateways, and configuring the availability zones for high availability. The guide uses both a visual diagram and step-by-step screenshots from the AWS console to assist with the setup.
@@ -30,7 +34,7 @@ Below is a diagram that shows the architecture of the VPC we are creating:
 4. Name the VPC (e.g., `c3ops_dev`).
 5. Enter the IPv4 CIDR block for the VPC (e.g., `10.0.0.0/16`).
 
-![Create VPC](/images/Screenshot_2024-10-09_at_01.21.26.png)
+![VPC Creation Settings](/images/vpc_creation_settings.png)
 
 For more details on VPC and CIDR block configuration, refer to the [AWS VPC Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html).
 
@@ -39,14 +43,14 @@ For more details on VPC and CIDR block configuration, refer to the [AWS VPC Docu
 1. In the **Number of Availability Zones** section, select **2** for high availability.
 2. Customize the Availability Zones by selecting **us-east-1a** and **us-east-1b**.
 
-![Availability Zones](/images/Screenshot_2024-10-09_at_01.25.27.png)
+![Select Availability Zones](/images/select_availability_zones.png)
 
 ### Step 3: Configure NAT Gateway and DNS Options
 
 1. Under the **NAT Gateways** section, select **In 1 AZ** to reduce costs while maintaining redundancy.
 2. Enable **DNS hostnames** and **DNS resolution** to ensure that resources within the VPC can resolve domain names.
 
-![NAT Gateway and DNS](/images/Screenshot_2024-10-09_at_01.27.16.png)
+![NAT Gateway Configuration](/images/nat_gateway_dns_options.png)
 
 For more details about NAT Gateways, visit the [AWS NAT Gateway Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html).
 
@@ -59,7 +63,7 @@ For more details about NAT Gateways, visit the [AWS NAT Gateway Documentation](h
    - Private Subnet 1 in us-east-1a: `10.0.3.0/24`
    - Private Subnet 2 in us-east-1b: `10.0.4.0/24`
 
-![Configure Subnets](/images/Screenshot_2024-10-09_at_01.28.13.png)
+![Subnet Configuration](/images/customize_subnets.png)
 
 More information on customizing subnets can be found in the [AWS Subnets Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html).
 
@@ -79,4 +83,3 @@ A **NAT Gateway** enables instances in a private subnet to connect to the intern
 A **Subnet** is a range of IP addresses within a VPC. Public subnets allow access to the internet, while private subnets are used for backend services without direct internet access.
 
 - AWS Documentation: [Subnet Overview](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)
-
