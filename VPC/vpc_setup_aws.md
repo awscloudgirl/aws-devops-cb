@@ -1,4 +1,4 @@
-# Creating a VPC Using AWS VPC and More
+# Creating a VPC using AWS VPC and more
 
 This documentation explains how to create a Virtual Private Cloud (VPC) in AWS using the **"VPC and More"** option under the **Resources to Create** setting. This setup will involve creating public and private subnets, NAT gateways, and configuring the availability zones for high availability. The guide uses both a visual diagram and step-by-step screenshots from the AWS console to assist with the setup.
 
