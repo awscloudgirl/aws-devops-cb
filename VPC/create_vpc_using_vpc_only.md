@@ -12,7 +12,7 @@ We'll configure:
 
 The final VPC architecture looks like this:
 
-![VPC Diagram](vpc_diagram.png)
+![VPC Diagram](/vpc_diagram.png)
 
 ---
 
