@@ -12,7 +12,7 @@ We'll configure:
 
 The final VPC architecture looks like this:
 
-![VPC Diagram](/vpc_diagram.png)
+![VPC Diagram](/images/vpc_diagram.png)
 
 ---
 
@@ -47,7 +47,7 @@ The final VPC architecture looks like this:
    - **Private Subnet 2 (us-east-1b)**: `192.168.4.0/24`
 3. Click **Create subnet**.
 
-![Create Subnets](create_subnets.png)
+![Create Subnets](/images/create_subnets.png)
 
 ## Step 3: Create Route Tables
 1. Go to **Route Tables** in the VPC dashboard and click **Create route table**.
@@ -59,7 +59,7 @@ The final VPC architecture looks like this:
    - **VPC**: `c3ops_qa`
 4. Click **Create route table**.
 
-![Create Route Table](create_route_table.png)
+![Create Route Table](/images/create_route_table.png)
 
 ## Step 4: Associate Subnets with Route Tables
 1. For the public route table (`c3ops_qa_public_rtb`), associate the public subnets:
@@ -68,21 +68,21 @@ The final VPC architecture looks like this:
    - **Private Subnet 1** and **Private Subnet 2**.
 3. Click **Save**.
 
-![Associate Subnets](associate_subnets.png)
+![Associate Subnets](/images/associate_subnets.png)
 
 ## Step 5: Create an Internet Gateway
 1. In the **Internet Gateways** section, click **Create internet gateway**.
 2. Provide a name for the internet gateway (e.g., `c3ops_qa_igw`).
 3. Click **Create**.
 
-![Create Internet Gateway](create_internet_gateway.png)
+![Create Internet Gateway](/images/create_internet_gateway.png)
 
 ## Step 6: Attach Internet Gateway to the VPC
 1. Select the internet gateway (`c3ops_qa_igw`) and click **Actions**.
 2. Choose **Attach to VPC**.
 3. Select the VPC (`c3ops_qa`) and click **Attach**.
 
-![Attach Internet Gateway](attach_internet_gateway.png)
+![Attach Internet Gateway](/images/attach_internet_gateway.png)
 
 ## Step 7: Modify Public Route Table to Use Internet Gateway
 1. Select the public route table (`c3ops_qa_public_rtb`) and click **Edit routes**.
@@ -91,12 +91,12 @@ The final VPC architecture looks like this:
    - **Target**: Select the internet gateway (`c3ops_qa_igw`).
 3. Click **Save changes**.
 
-![Edit Public Route Table](edit_public_route_table.png)
+![Edit Public Route Table](/images/edit_public_route_table.png)
 
 ## Step 8: Verify Public Subnet Associations
 1. Verify that both public subnets (`c3ops_qa_public_subnet_1` and `c3ops_qa_public_subnet_2`) are associated with the public route table (`c3ops_qa_public_rtb`).
 
-![Verify Public Subnet Associations](verify_public_subnet_associations.png)
+![Verify Public Subnet Associations](/images/verify_public_subnet_associations.png)
 
 ## Step 9: Create a NAT Gateway
 1. Navigate to **NAT Gateways** and click **Create NAT Gateway**.
@@ -104,7 +104,7 @@ The final VPC architecture looks like this:
 3. Choose the public subnet to create the NAT gateway in (e.g., `c3ops_qa_public_subnet_1`).
 4. Allocate an Elastic IP for the NAT gateway and click **Create**.
 
-![Create NAT Gateway](create_nat_gateway.png)
+![Create NAT Gateway](/images/create_nat_gateway.png)
 
 ## Step 10: Modify Private Route Table to Use NAT Gateway
 1. Select the private route table (`c3ops_qa_private_rtb`) and click **Edit routes**.
@@ -113,12 +113,12 @@ The final VPC architecture looks like this:
    - **Target**: Select the NAT gateway (`c3ops_qa_nat_gw`).
 3. Click **Save changes**.
 
-![Edit Private Route Table](edit_private_route_table.png)
+![Edit Private Route Table](/images/edit_private_route_table.png)
 
 ## Step 11: Verify Private Subnet Associations
 1. Verify that both private subnets (`c3ops_qa_private_subnet_1` and `c3ops_qa_private_subnet_2`) are associated with the private route table (`c3ops_qa_private_rtb`).
 
-![Verify Private Subnet Associations](verify_private_subnet_associations.png)
+![Verify Private Subnet Associations](/images/verify_private_subnet_associations.png)
 
 ---
 
