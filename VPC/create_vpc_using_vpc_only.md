@@ -1,4 +1,4 @@
-# AWS VPC Setup Documentation
+# Create VPC using VPC only
 
 ## Introduction
 This documentation guides you through setting up a VPC in AWS, complete with public and private subnets, an internet gateway, and a NAT gateway. It ensures your resources within the VPC can securely access the internet while keeping private resources shielded from direct exposure.
