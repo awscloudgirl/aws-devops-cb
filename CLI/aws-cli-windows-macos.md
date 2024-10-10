@@ -1,7 +1,3 @@
-Here’s the updated **GitHub portfolio documentation** that includes information about the `aws sts get-caller-identity` command. I've integrated it into the original structure.
-
----
-
 # AWS CLI Installation Guide
 
 This document provides instructions for installing the **AWS CLI** (Command Line Interface) on both **Windows** and **macOS**. The AWS CLI allows you to interact with AWS services using commands from your terminal or command prompt.
@@ -206,6 +202,3 @@ For a full list of available AWS CLI commands, visit the [AWS CLI Command Refere
 - [AWS CLI Official Documentation](https://docs.aws.amazon.com/cli/latest/userguide/)
 - [AWS CLI GitHub Repository](https://github.com/aws/aws-cli)
 
----
-
-This updated documentation now includes instructions on how to use the AWS STS `get-caller-identity` command, which is particularly useful for verifying your IAM credentials and identity. Feel free to customize the guide further based on your project needs!
