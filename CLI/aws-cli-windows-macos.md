@@ -1,7 +1,3 @@
-Here’s a comprehensive **GitHub portfolio documentation** for AWS CLI setup, configuration, usage of `aws sts get-caller-identity`, managing AWS credentials, and formatting output in JSON, YAML, and table formats. This is optimized for both **Windows** and **macOS**, and includes detailed information on how to manage multiple profiles.
-
----
-
 # AWS CLI Installation & Configuration Guide
 
 This guide covers the installation and configuration of the **AWS CLI** (Command Line Interface) on **Windows** and **macOS**, including information on AWS credentials, how to use multiple profiles, and output formatting options like JSON, YAML, and table.
