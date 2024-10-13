@@ -144,7 +144,7 @@ PRIVATE_SUBNET_CIDR_1="192.168.3.0/24"
 PRIVATE_SUBNET_CIDR_2="192.168.4.0/24"
 
 # Create VPC
-VPC_ID=$(aws ec2 create-vpc --cidr-block $VPC_CIDR --region $REGION --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=MyVpc}] --query 'Vpc.VpcId' --output text)
+VPC_ID=$(aws ec2 create-vpc --cidr-block $VPC_CIDR --region $REGION --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=MyVpc}]' --query 'Vpc.VpcId' --output text)
 
 # Create Subnets
 PUBLIC_SUBNET_1=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PUBLIC_SUBNET_CIDR_1 --availability-zone $AZ1 --query 'Subnet.SubnetId' --output text)
@@ -152,15 +152,17 @@ PUBLIC_SUBNET_2=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PUBLIC_SU
 PRIVATE_SUBNET_1=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PRIVATE_SUBNET_CIDR_1 --availability-zone $AZ1 --query 'Subnet.SubnetId' --output text)
 PRIVATE_SUBNET_2=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PRIVATE_SUBNET_CIDR_2 --availability-zone $AZ2 --query 'Subnet.SubnetId' --output text)
 
-# Create Internet Gateway and attach it to VPC
-INTERNET_GATEWAY_ID=$(aws ec2 create-internet-gateway --
+# Create Internet Gateway
+INTERNET_GATEWAY_ID=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text)
 
-query 'InternetGateway.InternetGatewayId' --output text)
+# Attach Internet Gateway to the VPC
 aws ec2 attach-internet-gateway --vpc-id $VPC_ID --internet-gateway-id $INTERNET_GATEWAY_ID
 
 # Create NAT Gateway
 ALLOCATION_ID=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
 NAT_GATEWAY_ID=$(aws ec2 create-nat-gateway --subnet-id $PUBLIC_SUBNET_1 --allocation-id $ALLOCATION_ID --query 'NatGateway.NatGatewayId' --output text)
+
+# Wait for NAT Gateway to become available
 aws ec2 wait nat-gateway-available --nat-gateway-ids $NAT_GATEWAY_ID
 
 # Create Route Tables and Routes
@@ -181,9 +183,14 @@ aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protoco
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 80 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 3389 --cidr 0.0.0.0/0
 
+WINDOWS_AMI_ID="ami-0888db1202897905c"  # Replace with a valid Windows AMI ID
+LINUX_AMI_ID="ami-0fff1b9a61dec8a5f"      # Replace with a valid Linux AMI ID
+INSTANCE_TYPE="t2.micro"                # Specify instance type
+KEY_NAME="linux_sshkeys"              # Replace with your key pair name
+
 # Launch EC2 Instances
-WINDOWS_INSTANCE_ID=$(aws ec2 run-instances --image-id ami-0888db1202897905c --instance-type t2.micro --key-name cloudbinary_nv_sshkeys --subnet-id $PUBLIC_SUBNET_1 --security-group-ids $SECURITY_GROUP_ID --query 'Instances[0].InstanceId' --output text)
-LINUX_INSTANCE_ID=$(aws ec2 run-instances --image-id ami-0866a3c8686eaeeba --instance-type t2.micro --key-name cloudbinary_nv_sshkeys --subnet-id $PRIVATE_SUBNET_1 --security-group-ids $SECURITY_GROUP_ID --query 'Instances[0].InstanceId' --output text)
+WINDOWS_INSTANCE_ID=$(aws ec2 run-instances --image-id ami-0888db1202897905c --instance-type t2.micro --key-name linux_sshkeys --subnet-id $PUBLIC_SUBNET_1 --security-group-ids $SECURITY_GROUP_ID --query 'Instances[0].InstanceId' --output text)
+LINUX_INSTANCE_ID=$(aws ec2 run-instances --image-id ami-0fff1b9a61dec8a5f --instance-type t2.micro --key-name linux_sshkeys --subnet-id $PRIVATE_SUBNET_1 --security-group-ids $SECURITY_GROUP_ID --query 'Instances[0].InstanceId' --output text)
 
 echo "Infrastructure setup is complete!"
 ```
