@@ -1,21 +1,21 @@
-## Shell Script for AWS Infrastructure Setup and Cleanup
+# Automating AWS VPC Infrastructure Setup
 
-This documentation explains a shell script that automates the setup of AWS infrastructure, including VPC, subnets, NAT gateways, security groups, and EC2 instances. It also provides a cleanup script to delete the resources created by the original script.
+This document outlines a shell script that automates the setup of AWS infrastructure, including VPC, subnets, NAT gateways, security groups, and EC2 instances.
 
 ---
 
 ## What is a Shell Script?
 
-A **shell script** is a file containing a series of commands written for the command-line interpreter (shell). It allows you to automate repetitive tasks, like setting up infrastructure, by executing these commands sequentially. In this case, the script is written in **Bash** and uses the AWS CLI to create various AWS resources.
+A **shell script** is a file containing a series of commands for a command-line interpreter (shell). It automates tasks by executing these commands sequentially. In this case, the script is written in **Bash** and utilizes the AWS CLI to provision AWS resources.
 
 ---
 
 ## Breakdown of the Script
 
-This section breaks down the main parts of the shell script.
+The key parts of the script are explained below:
 
 ### 1. **Configuring Variables**
-Variables are defined for AWS region, availability zones (AZ), CIDR blocks for VPC and subnets, and other AWS-specific details such as instance type and AMI IDs.
+Variables are defined for the AWS region, availability zones (AZ), CIDR blocks for VPC and subnets, and other AWS-specific details like instance types and AMI IDs.
 
 ```bash
 REGION="us-east-1"
@@ -31,7 +31,7 @@ PRIVATE_SUBNET_CIDR_2="192.168.4.0/24"
 ---
 
 ### 2. **Creating a VPC**
-The script creates a VPC with the CIDR block specified in the variables.
+A VPC is created using the specified CIDR block.
 
 ```bash
 VPC_ID=$(aws ec2 create-vpc --cidr-block $VPC_CIDR --region $REGION --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=MyVpc}] --query 'Vpc.VpcId' --output text)
@@ -40,7 +40,7 @@ VPC_ID=$(aws ec2 create-vpc --cidr-block $VPC_CIDR --region $REGION --tag-specif
 ---
 
 ### 3. **Creating Subnets**
-Both public and private subnets are created within the specified VPC, each in different availability zones.
+Both public and private subnets are created within the VPC, each in different availability zones.
 
 ```bash
 # Public Subnets
@@ -55,7 +55,7 @@ PRIVATE_SUBNET_2=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PRIVATE_
 ---
 
 ### 4. **Creating and Attaching an Internet Gateway**
-An internet gateway is created and attached to the VPC to enable internet access for resources in the public subnets.
+An internet gateway is created and attached to the VPC to enable internet access for public subnets.
 
 ```bash
 INTERNET_GATEWAY_ID=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text)
@@ -65,7 +65,7 @@ aws ec2 attach-internet-gateway --vpc-id $VPC_ID --internet-gateway-id $INTERNET
 ---
 
 ### 5. **Creating a NAT Gateway**
-A NAT gateway is created in a public subnet to allow instances in private subnets to access the internet. An Elastic IP is also allocated for the NAT gateway.
+A NAT gateway is created in a public subnet, allowing private subnet instances to access the internet. An Elastic IP is also allocated for the NAT gateway.
 
 ```bash
 ALLOCATION_ID=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
@@ -76,7 +76,7 @@ aws ec2 wait nat-gateway-available --nat-gateway-ids $NAT_GATEWAY_ID
 ---
 
 ### 6. **Creating Route Tables and Routes**
-Two route tables are created: one for public subnets (with a route to the internet gateway) and one for private subnets (with a route to the NAT gateway).
+Separate route tables are created for public and private subnets. Routes to the internet gateway and NAT gateway are defined accordingly.
 
 ```bash
 # Route Tables
@@ -91,7 +91,7 @@ aws ec2 create-route --route-table-id $PRIVATE_ROUTE_TABLE_ID --destination-cidr
 ---
 
 ### 7. **Associating Subnets with Route Tables**
-Subnets are associated with their respective route tables.
+The created subnets are associated with their respective route tables.
 
 ```bash
 # Public Subnets with Public Route Table
@@ -105,8 +105,8 @@ aws ec2 associate-route-table --route-table-id $PRIVATE_ROUTE_TABLE_ID --subnet-
 
 ---
 
-### 8. **Creating Security Group**
-A security group is created and configured with rules to allow traffic for SSH, HTTP, and RDP.
+### 8. **Creating a Security Group**
+A security group is created with rules to allow SSH, HTTP, and RDP traffic.
 
 ```bash
 SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name MySecurityGroup --description "My security group" --vpc-id $VPC_ID --query 'GroupId' --output text)
@@ -154,20 +154,19 @@ PRIVATE_SUBNET_2=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PRIVATE_
 
 # Create Internet Gateway
 INTERNET_GATEWAY_ID=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text)
-
-# Attach Internet Gateway to the VPC
 aws ec2 attach-internet-gateway --vpc-id $VPC_ID --internet-gateway-id $INTERNET_GATEWAY_ID
 
 # Create NAT Gateway
-ALLOCATION_ID=$(aws ec2 allocate-address --domain vpc --query 'AllocationId' --output text)
-NAT_GATEWAY_ID=$(aws ec2 create-nat-gateway --subnet-id $PUBLIC_SUBNET_1 --allocation-id $ALLOCATION_ID --query 'NatGateway.NatGatewayId' --output text)
+ALLOCATION_ID=$(aws ec2 allocate-address
 
-# Wait for NAT Gateway to become available
+ --domain vpc --query 'AllocationId' --output text)
+NAT_GATEWAY_ID=$(aws ec2 create-nat-gateway --subnet-id $PUBLIC_SUBNET_1 --allocation-id $ALLOCATION_ID --query 'NatGateway.NatGatewayId' --output text)
 aws ec2 wait nat-gateway-available --nat-gateway-ids $NAT_GATEWAY_ID
 
 # Create Route Tables and Routes
 PUBLIC_ROUTE_TABLE_ID=$(aws ec2 create-route-table --vpc-id $VPC_ID --query 'RouteTable.RouteTableId' --output text)
 PRIVATE_ROUTE_TABLE_ID=$(aws ec2 create-route-table --vpc-id $VPC_ID --query 'RouteTable.RouteTableId' --output text)
+
 aws ec2 create-route --route-table-id $PUBLIC_ROUTE_TABLE_ID --destination-cidr-block 0.0.0.0/0 --gateway-id $INTERNET_GATEWAY_ID
 aws ec2 create-route --route-table-id $PRIVATE_ROUTE_TABLE_ID --destination-cidr-block 0.0.0.0/0 --nat-gateway-id $NAT_GATEWAY_ID
 
@@ -177,129 +176,21 @@ aws ec2 associate-route-table --route-table-id $PUBLIC_ROUTE_TABLE_ID --subnet-i
 aws ec2 associate-route-table --route-table-id $PRIVATE_ROUTE_TABLE_ID --subnet-id $PRIVATE_SUBNET_1
 aws ec2 associate-route-table --route-table-id $PRIVATE_ROUTE_TABLE_ID --subnet-id $PRIVATE_SUBNET_2
 
-# Create Security Group and Add Rules
+# Create Security Group
 SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name MySecurityGroup --description "My security group" --vpc-id $VPC_ID --query 'GroupId' --output text)
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 80 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id $SECURITY_GROUP_ID --protocol tcp --port 3389 --cidr 0.0.0.0/0
 
-WINDOWS_AMI_ID="ami-0888db1202897905c"  # Replace with a valid Windows AMI ID
-LINUX_AMI_ID="ami-0fff1b9a61dec8a5f"      # Replace with a valid Linux AMI ID
-INSTANCE_TYPE="t2.micro"                # Specify instance type
-KEY_NAME="linux_sshkeys"              # Replace with your key pair name
-
 # Launch EC2 Instances
-WINDOWS_INSTANCE_ID=$(aws ec2 run-instances --image-id ami-0888db1202897905c --instance-type t2.micro --key-name linux_sshkeys --subnet-id $PUBLIC_SUBNET_1 --security-group-ids $SECURITY_GROUP_ID --query 'Instances[0].InstanceId' --output text)
-LINUX_INSTANCE_ID=$(aws ec2 run-instances --image-id ami-0fff1b9a61dec8a5f --instance-type t2.micro --key-name linux_sshkeys --subnet-id $PRIVATE_SUBNET_1 --security-group-ids $SECURITY_GROUP_ID --query 'Instances[0].InstanceId' --output text)
+WINDOWS_INSTANCE_ID=$(aws ec2 run-instances --image-id $WINDOWS_AMI_ID --instance-type $INSTANCE_TYPE --key-name $KEY_NAME --subnet-id $PUBLIC_SUBNET_1 --security-group-ids $SECURITY_GROUP_ID --query 'Instances[0].InstanceId' --output text)
+LINUX_INSTANCE_ID=$(aws ec2 run-instances --image-id $LINUX_AMI_ID --instance-type $INSTANCE_TYPE --key-name $KEY_NAME --subnet-id $PRIVATE_SUBNET_1 --security-group-ids $SECURITY_GROUP_ID --query 'Instances[0].InstanceId' --output text)
 
-echo "Infrastructure setup is complete!"
-```
-To check if all the components of your VPC setup are running as expected, you can add validation commands at the end of your script to query the status of each component, such as VPC, subnets, internet gateway, NAT gateway, route tables, and instances.
-
-Here are the commands you can add to your script:
-
-```bash
-#!/bin/bash
-
-# Check VPC
-echo "Checking VPC..."
-aws ec2 describe-vpcs --vpc-ids $VPC_ID --output table
-
-# Check Subnets
-echo "Checking Public Subnet 1..."
-aws ec2 describe-subnets --subnet-ids $PUBLIC_SUBNET_1 --output table
-echo "Checking Public Subnet 2..."
-aws ec2 describe-subnets --subnet-ids $PUBLIC_SUBNET_2 --output table
-echo "Checking Private Subnet 1..."
-aws ec2 describe-subnets --subnet-ids $PRIVATE_SUBNET_1 --output table
-echo "Checking Private Subnet 2..."
-aws ec2 describe-subnets --subnet-ids $PRIVATE_SUBNET_2 --output table
-
-# Check Internet Gateway
-echo "Checking Internet Gateway..."
-aws ec2 describe-internet-gateways --internet-gateway-ids $INTERNET_GATEWAY_ID --output table
-
-# Check NAT Gateway
-echo "Checking NAT Gateway..."
-aws ec2 describe-nat-gateways --nat-gateway-ids $NAT_GATEWAY_ID --output table
-
-# Check Route Tables
-echo "Checking Public Route Table..."
-aws ec2 describe-route-tables --route-table-ids $PUBLIC_ROUTE_TABLE_ID --output table
-echo "Checking Private Route Table..."
-aws ec2 describe-route-tables --route-table-ids $PRIVATE_ROUTE_TABLE_ID --output table
-
-# Check Security Group
-echo "Checking Security Group..."
-aws ec2 describe-security-groups --group-ids $SECURITY_GROUP_ID --output table
-
-# Check EC2 Instances
-echo "Checking Windows Instance..."
-aws ec2 describe-instances --instance-ids $WINDOWS_INSTANCE_ID --output table
-echo "Checking Linux Instance..."
-aws ec2 describe-instances --instance-ids $LINUX_INSTANCE_ID --output table
-
-echo "VPC Component Check Completed!"
+echo "Infrastructure setup is complete."
 ```
 
-### Explanation of the Commands:
-1. **`aws ec2 describe-vpcs`**: Verifies the VPC by its ID.
-2. **`aws ec2 describe-subnets`**: Checks if the subnets are created and available.
-3. **`aws ec2 describe-internet-gateways`**: Confirms the existence and attachment of the Internet Gateway.
-4. **`aws ec2 describe-nat-gateways`**: Ensures the NAT Gateway is created and available.
-5. **`aws ec2 describe-route-tables`**: Checks if the route tables are properly configured.
-6. **`aws ec2 describe-security-groups`**: Ensures that the security group is created and configured with the correct rules.
-7. **`aws ec2 describe-instances`**: Confirms that the EC2 instances (Windows and Linux) are running.
+--- 
 
-Add these checks at the end of your script, and it will display the status of each component in a structured table format.
+### Conclusion
 
----
-
-### Script to Delete Everything Created by the Original Script
-
-The following script deletes all resources created by the initial script, including EC2 instances, security groups, route tables, subnets, NAT gateway, and VPC.
-
-```bash
-#!/bin/bash
-
-# Terminate EC2 Instances
-aws ec2 terminate-instances --instance-ids $WINDOWS_INSTANCE_ID $LINUX_INSTANCE_ID
-aws ec2 wait instance-terminated --instance-ids $WINDOWS_INSTANCE_ID $LINUX_INSTANCE_ID
-
-# Delete Security Group
-aws ec2 delete-security-group --group-id $SECURITY_GROUP_ID
-
-# Delete Route Tables
-aws ec2 delete-route-table --route-table-id $PUBLIC_ROUTE_TABLE_ID
-aws ec2 delete-route-table --route-table-id $PRIVATE_ROUTE_TABLE_ID
-
-# Delete NAT Gateway and release Elastic IP
-aws ec2 delete-nat-gateway --nat-gateway-id $NAT_GATEWAY_ID
-aws ec2 release-address --allocation-id $ALLOCATION_ID
-
-# Detach and Delete Internet Gateway
-aws ec2 detach-internet-gateway --internet-gateway-id $INTERNET_GATEWAY_ID --vpc-id $VPC_ID
-aws ec2 delete-internet-gateway --internet-gateway-id $INTERNET_GATEWAY_ID
-
-# Delete Subnets
-aws ec2 delete-subnet --subnet-id $PUBLIC_SUBNET_1
-aws ec2 delete-subnet --subnet-id $PUBLIC_SUBNET_2
-aws ec2 delete-subnet --subnet-id $PRIVATE_SUBNET_1
-aws ec2 delete-subnet --subnet-id $PRIVATE_SUBNET_2
-
-# Delete VPC
-aws ec2 delete-vpc --vpc-id $VPC_ID
-
-echo "All resources created by the script have been deleted."
-```
-
-### Checking Resources Created and Deleted
-
-To verify that the resources were created or deleted, use the following AWS CLI commands:
-
-- **Check VPC**: `aws ec2 describe-vpcs --vpc-ids $VPC_ID`
-- **Check Subnets**: `aws ec2 describe-subnets --filters "Name=vpc-id,Values=$VPC_ID"`
-- **Check Instances**: `aws ec2 describe-instances --instance-ids $WINDOWS_INSTANCE_ID $LINUX_INSTANCE_ID`
-- **Check Security Groups**: `aws ec2 describe-security-groups --group-ids $SECURITY_GROUP_ID`
-
-If resources have been deleted, these commands should return no results or an error message indicating that the resources no longer exist.
+This script automates the creation of an AWS infrastructure setup that includes a VPC, public and private subnets, an internet gateway, a NAT gateway, security groups, and EC2 instances. It is flexible and can be modified to suit various configurations depending on your infrastructure requirements.
