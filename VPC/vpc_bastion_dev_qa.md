@@ -517,3 +517,22 @@ To visualize the architecture and layout of the deployed resources, refer to the
 
 ![Resource Map of VPC](/images/resource-map.png)
 
+## Modifying IAM Role for Session Manager Access
+
+To enhance security and simplify access management, you can modify the IAM role attached to your EC2 instance to include permissions for AWS Systems Manager Session Manager. This allows you to manage instances without needing a bastion host.
+
+### Steps to Modify IAM Role
+
+1. **Select the IAM Role**: Navigate to the EC2 console, select your instance, and choose "Modify IAM role."
+2. **Attach the Role**: Choose an IAM role that includes the `AmazonSSMManagedInstanceCore` policy, such as `cb-ssm`.
+3. **Update the Role**: Click "Update IAM role" to apply the changes.
+
+![Modify_IAM](/images/modify-iam-role.png)
+
+### Benefits of Using Session Manager
+
+- **Secure Access**: Session Manager provides secure, auditable access to your instances without opening inbound ports or managing SSH keys.
+- **No Bastion Host Needed**: By using Session Manager, you eliminate the need for a bastion host, reducing complexity and potential security risks.
+- **Centralized Management**: Manage multiple instances from a single interface, streamlining operations and improving efficiency. 
+
+This modern approach enhances security and simplifies the management of your AWS infrastructure.
