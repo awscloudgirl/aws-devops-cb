@@ -1,5 +1,22 @@
 # Automated Deployment of Single-Tier Architecture: Two VPCs with Windows Bastion, Private Ubuntu Server, and VPC Peering
+This guide details the automated deployment of a single-tier architecture using AWS. The setup includes two VPCs, each with a Windows bastion server and a private Ubuntu web server. Initially, we will build and test the scripts for the development and QA environments, troubleshoot any issues, and then add VPC peering in a subsequent document.
+
+
 ![VPC_Single_Tier_Bastion](/images/vpc-bastion-1.png)
+
+The infrastructure consists of:
+
+- **Development Environment**: 
+  - A VPC with public and private subnets.
+  - A Windows bastion server for secure access.
+  - A private Ubuntu web server.
+  - NAT and Internet gateways for network management.
+
+- **QA Environment**:
+  - Similar setup with distinct CIDR blocks and resource tags.
+  - Initially isolated, with VPC peering to be added later for secure communication between environments.
+
+The use of bastion servers ensures secure access to private resources, while VPC peering will allow seamless integration and testing across environments. This architecture supports efficient development and QA processes by providing isolated yet interconnected environments.
 ```bash
 #!/bin/bash
 
