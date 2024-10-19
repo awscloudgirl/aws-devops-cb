@@ -625,3 +625,57 @@ To securely connect from the bastion host to your private Linux web server, you 
    ```
 
 By following these steps, you can securely access your web server from the bastion host, allowing you to manage and configure your server as needed.
+## Steps to Set Up and Deploy a Website
+
+### Step 1: Restart SSM Agent and Check Internet Connectivity
+
+1. **Restart the SSM Agent**: On the bastion host, run the following command to restart the SSM agent:
+   ```bash
+   systemctl restart snap.amazon-ssm-agent.amazon-ssm-agent.service
+   ```
+
+2. **Check Internet Connectivity**: Update the package list to ensure internet connectivity:
+   ```bash
+   apt update
+   ```
+
+### Step 2: Install and Configure Apache on the Web Server
+
+1. **Connect via Session Manager**: Use AWS Session Manager to connect to your web server.
+   ![](/images/session_manager.png)
+
+2. **Update Packages**: Run the following command to update the package list:
+   ```bash
+   apt update
+   ```
+
+3. **Install Apache**: Install Apache to host your website:
+   ```bash
+   apt install apache2 -y
+   ```
+
+4. **Check Apache Status**: Verify that Apache is running:
+   ```bash
+   systemctl status apache2
+   ```
+   ![](/images/apache_status.png)
+
+### Step 3: Deploy Website Code
+
+1. **Clone the GitHub Repository**: Navigate to `/opt` and clone your website code:
+   ```bash
+   cd /opt
+   git clone https://github.com/kesavkummari/kesavkummari-website-code.git
+   ```
+   ![](/images/github_clone.png)
+
+2. **Copy Files to Web Directory**: Copy the website files to the Apache web directory:
+   ```bash
+   cd kesavkummari-website-code
+   cp -pvr . /var/www/html/
+   ```
+
+3. **Refresh the Web Server Page**: Open a browser and navigate to your web server's IP to see the deployed website.
+   ![](/images/website_deployed.png)
+
+By following these steps, you can successfully deploy and host your website on the Apache server.
