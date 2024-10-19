@@ -503,3 +503,17 @@ bash -x c3ops_dev_vpc.sh
 
 This command will execute the `c3ops_dev_vpc.sh` script, printing each command to the terminal as it runs. This detailed output is invaluable for troubleshooting and verifying that each step of the setup process is completed successfully.
 
+Certainly! Here's a brief section you can include in your documentation to indicate successful deployment and reference a resource map:
+
+---
+
+## Successful Deployment
+
+The development environment has been successfully deployed using the `c3ops_dev_vpc.sh` script. All components, including VPCs, subnets, NAT gateways, security groups, and EC2 instances, have been provisioned and configured as intended.
+
+## Resource Map
+
+To visualize the architecture and layout of the deployed resources, refer to the resource map below. This diagram provides a comprehensive overview of the VPC setup, illustrating the relationships and connections between the various components.
+
+![Resource Map of VPC](/images/resource-map.png)
+
