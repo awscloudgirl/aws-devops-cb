@@ -1,6 +1,6 @@
 # Automated Deployment of Single-Tier Architecture: Two VPCs with Windows Bastion, Private Ubuntu Server, and VPC Peering
-This guide details the automated deployment of a single-tier architecture using AWS. The setup includes two VPCs, each with a Windows bastion server and a private Ubuntu web server. Initially, we will build and test the scripts for the development and QA environments, troubleshoot any issues, and then add VPC peering in a subsequent document.
 
+This guide details the automated deployment of a single-tier architecture using AWS. The setup includes two VPCs, each with a Windows bastion server and a private Ubuntu web server. Initially, we will build and test the scripts for the development and QA environments, troubleshoot any issues, and then add VPC peering to enable communication between the environments.
 
 ![VPC_Single_Tier_Bastion](/images/vpc-bastion-1.png)
 
@@ -49,7 +49,7 @@ PRIVATE_SUBNET_2=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PRIVATE_
 echo "Private Subnet 1 ID: $PRIVATE_SUBNET_1"
 echo "Private Subnet 2 ID: $PRIVATE_SUBNET_2"
 
-# qEnable auto-assign public IPv4 addresses for Public Subnets
+# Enable auto-assign public IPv4 addresses for Public Subnets
 echo "Enabling auto-assign public IPv4 addresses for Public Subnets..."
 aws ec2 modify-subnet-attribute --subnet-id $PUBLIC_SUBNET_1 --map-public-ip-on-launch
 aws ec2 modify-subnet-attribute --subnet-id $PUBLIC_SUBNET_2 --map-public-ip-on-launch
