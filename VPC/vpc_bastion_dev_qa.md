@@ -625,7 +625,7 @@ To securely connect from the bastion host to your private Linux web server, you 
    ```
 
 By following these steps, you can securely access your web server from the bastion host, allowing you to manage and configure your server as needed.
-## Steps to Set Up and Deploy a Website
+## Deploy a Custom Website
 
 ### Step 1: Restart SSM Agent and Check Internet Connectivity
 
@@ -679,3 +679,68 @@ By following these steps, you can securely access your web server from the basti
    ![](/images/website_deployed.png)
 
 By following these steps, you can successfully deploy and host your website on the Apache server.
+Certainly. I'll incorporate the images into the steps and reprint the amended markdown file for you.
+
+# Setting Up QA Environment and Configuring VPC Peering
+
+## Initial Setup
+
+1. Start by setting up the QA environment using the provided script:
+   ```bash
+   bash -x c3ops_qa_vpc.sh
+   ```
+   This will create the QA VPC and associated resources.
+
+2. Once the script completes, navigate to the AWS VPC Dashboard.
+
+## Creating VPC Peering Connection
+
+1. In the VPC Dashboard, select "Peering Connections" from the left sidebar.
+
+2. Click on "Create Peering Connection".
+
+3. Configure the peering connection:
+   - VPC (Requester): Select your QA VPC
+   - Account: Select "My account"
+   - Region: Select "This region"
+   - VPC (Accepter): Select your Dev VPC
+   - Peering connection name tag: Enter "Dev-QA"
+
+   ![Create peering connection](/images/Create_peering_connection.png)
+
+4. Review the settings and click "Create Peering Connection".
+
+   ![Select VPCs for Peering](/images/Select_VPCs_for_Peering.png)
+
+## Configuring QA Route Tables
+
+1. In the VPC Dashboard, go to "Route Tables".
+
+2. Select the "c3ops_qa_private_rtb" route table.
+
+3. Click on the "Routes" tab, then "Edit routes".
+
+4. Add a new route:
+   - Destination: 192.168.0.0/16 (Dev VPC CIDR)
+   - Target: Select "Peering Connection", then choose the Dev-QA peering connection (e.g., pcx-0004ddbdd02949b34)
+
+   ![Edit Routes for VPC Peering](/images/Edit_Routes_VPC_Peering.png)
+
+5. Click "Save changes".
+
+6. Repeat steps 2-5 for the "c3ops_qa_public_rtb" route table.
+
+## Configuring Dev Route Tables
+
+1. Still in the Route Tables section, locate the Dev VPC route tables.
+
+2. For each Dev route table (private and public):
+   - Select the route table
+   - Click "Edit routes"
+   - Add a new route:
+     - Destination: 172.18.0.0/16 (QA VPC CIDR)
+     - Target: Select "Peering Connection", then choose the same Dev-QA peering connection
+
+3. Save changes for each route table.
+
+By completing these steps, you've established VPC peering between your Dev and QA environments, allowing communication between the two VPCs.
