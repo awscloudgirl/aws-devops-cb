@@ -578,17 +578,50 @@ To manage your repositories and perform version control tasks, you can download 
 
 ### Step 2: Download Git for Windows
 - Click on the "Download for Windows" button to start downloading the Git installer.
-  - ![Download Git for Windows](path/to/your/git_download.png)
+  - ![Download Git for Windows](/images/Git_Download_Page.png)
 
 ### Step 3: Run the Installer
 - Once the download is complete, open the downloaded `.exe` file to start the installation process.
-  - ![Run Git Installer](path/to/your/git_installer.png)
+  - ![Run Git Installer](/images/Git_Installer_Setup.png)
 
 ### Step 4: Follow the Installation Wizard
 - Proceed through the installation wizard by clicking "Next" and accepting the default settings. This will install Git Bash on your system.
-  - ![Installation Wizard](path/to/your/installation_wizard.png)
 
 ### Step 5: Complete the Installation
 - After the installation is complete, you can launch Git Bash from the Start menu or desktop shortcut.
 
 By following these steps, you can successfully install Git Bash on your bastion host, enabling you to manage your code repositories directly from the server.
+
+## Copying the Key Pair and SSHing into the Web Server
+
+To securely connect from the bastion host to your private Linux web server, you need to copy your key pair and use it for SSH access. Follow these steps:
+
+### Step 1: Copy the Key Pair
+
+1. **Open Git Bash or Command Prompt**: On your bastion host, open Git Bash or a command prompt.
+2. **Navigate to the Download Folder**: Ensure you are in the directory where you want to store the key pair, typically the Downloads folder.
+   ```bash
+   cd ~/Downloads
+   ```
+3. **Create and Edit the Key File**: Use `vi` to create a new file and paste your key pair.
+   ```bash
+   vi linux_sshkeys
+   ```
+   - Press `i` to enter insert mode.
+   - Paste the contents of your `linux_sshkeys.pem` file.
+   - Press `Esc` to exit insert mode.
+   - Type `:wq` and press `Enter` to save and quit.
+
+4. **Rename the Key File**: Ensure the file has the correct `.pem` extension.
+   ```bash
+   mv linux_sshkeys linux_sshkeys.pem
+   ```
+
+### Step 2: SSH into the Web Server
+
+1. **Use SSH to Connect**: With the key pair in place, use SSH to connect to your private Ubuntu web server from the bastion host.
+   ```bash
+   ssh -i linux_sshkeys.pem ubuntu@192.168.3.76
+   ```
+
+By following these steps, you can securely access your web server from the bastion host, allowing you to manage and configure your server as needed.
