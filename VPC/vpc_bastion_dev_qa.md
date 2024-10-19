@@ -491,3 +491,15 @@ echo "Linux Web Server Instance ID: $LINUX_INSTANCE_ID"
 
 echo "Infrastructure setup is complete!"
 ```
+## Starting the Development Environment with Debugging
+
+To ensure a smooth setup of the development environment, it's beneficial to run the script with debugging enabled. By executing the script with `bash -x`, you can observe each command as it is executed, providing greater visibility into the script's operations and helping to identify any potential issues.
+
+To start the development environment with debugging, use the following command:
+
+```bash
+bash -x c3ops_dev_vpc.sh
+```
+
+This command will execute the `c3ops_dev_vpc.sh` script, printing each command to the terminal as it runs. This detailed output is invaluable for troubleshooting and verifying that each step of the setup process is completed successfully.
+
