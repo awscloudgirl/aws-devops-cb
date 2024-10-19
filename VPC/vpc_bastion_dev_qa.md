@@ -543,22 +543,27 @@ Follow these steps to connect to your Windows bastion host using Remote Desktop 
 
 ### Step 1: Retrieve the RDP File
 - **Download the RDP File**: Access the AWS Management Console, navigate to your EC2 instance, and download the RDP file.
+- 
   - ![Download RDP File](/images/rdp-download.png)
 
 ### Step 2: Decrypt the Windows Password
 - **Get the Password**: Use your private key to decrypt the Windows administrator password.
-  - ![Decrypt Password](/images/decrypt_password.png)
+- 
+  - ![Decrypt Password](/images/decrypt-password.png)
 
 ### Step 3: Open the RDP Client
 - **Launch the RDP Client**: Open the downloaded RDP file with your RDP client.
+- 
   - ![Open RDP Client](/images/open_rdp_client.png)
 
 ### Step 4: Enter Credentials
 - **Enter Username and Password**: Use "Administrator" as the username and the decrypted password.
+- 
   - ![Enter Credentials](/images/enter_credentials.png)
 
 ### Step 5: Accept Security Certificate
 - **Accept the Certificate**: If prompted, accept the security certificate to proceed.
+- 
   - ![Accept Certificate](/images/accept_certificate.png)
 
 ### Step 6: Access the Bastion Host
