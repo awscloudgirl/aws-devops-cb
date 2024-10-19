@@ -744,3 +744,44 @@ Certainly. I'll incorporate the images into the steps and reprint the amended ma
 3. Save changes for each route table.
 
 By completing these steps, you've established VPC peering between your Dev and QA environments, allowing communication between the two VPCs.
+Here are the step-by-step instructions in Markdown format for testing the connection from the Windows bastion in the Dev VPC to the QA webserver:
+
+# Testing VPC Peering Connection
+
+## Step 1: Accept Peering Connection Request
+
+1. Navigate to the VPC Dashboard in the AWS Console.
+2. Click on "Peering Connections" in the left sidebar.
+3. Find the pending peering connection request from the Dev VPC to the QA VPC.
+4. Select the request and click "Actions" > "Accept request".
+5. Confirm the action to accept the peering connection.
+
+## Step 2: Update Security Group Rules
+
+1. Go to the EC2 Dashboard in the AWS Console.
+2. Click on "Security Groups" in the left sidebar.
+3. Find the security group associated with your QA webserver.
+4. Select the security group and go to the "Inbound rules" tab.
+5. Click "Edit inbound rules".
+6. Add two new rules:
+   - Type: SSH, Source: 192.168.0.0/16
+   - Type: HTTP, Source: 192.168.0.0/16
+7. Click "Save rules" to apply the changes.
+
+## Step 3: Connect to QA Webserver from Dev Bastion
+
+1. RDP into your Windows bastion host in the Dev VPC.
+2. Open Git Bash.
+3. Navigate to the Downloads folder:
+   ```
+   cd ~/Downloads
+   ```
+4. Use SSH to connect to the QA webserver:
+   ```
+   ssh -i linux_sshkeys.pem ubuntu@172.18.3.10
+   ```
+5. If prompted about the authenticity of the host, type "yes" to continue.
+
+6. You should now be connected to the QA webserver via SSH.
+
+By following these steps, you've successfully tested the VPC peering connection by connecting from the Dev VPC's bastion host to the QA VPC's webserver.
