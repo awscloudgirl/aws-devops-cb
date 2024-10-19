@@ -563,9 +563,32 @@ Follow these steps to connect to your Windows bastion host using Remote Desktop 
 
 ### Step 5: Accept Security Certificate
 - **Accept the Certificate**: If prompted, accept the security certificate to proceed.
-- 
+
   - ![Accept Certificate](/images/accept_certificate.png)
 
 ### Step 6: Access the Bastion Host
 - **Connect to the Desktop**: You should now see the Windows desktop of your bastion host.
   - ![Access Bastion Host](/images/access_bastion_host.png)
+## Downloading and Installing Git Bash on the Bastion Host
+
+To manage your repositories and perform version control tasks, you can download and install Git Bash on your Windows bastion host. Follow these steps:
+
+### Step 1: Access the Git Website
+- Open a web browser on your bastion host and navigate to the Git download page: [https://git-scm.com/downloads](https://git-scm.com/downloads).
+
+### Step 2: Download Git for Windows
+- Click on the "Download for Windows" button to start downloading the Git installer.
+  - ![Download Git for Windows](path/to/your/git_download.png)
+
+### Step 3: Run the Installer
+- Once the download is complete, open the downloaded `.exe` file to start the installation process.
+  - ![Run Git Installer](path/to/your/git_installer.png)
+
+### Step 4: Follow the Installation Wizard
+- Proceed through the installation wizard by clicking "Next" and accepting the default settings. This will install Git Bash on your system.
+  - ![Installation Wizard](path/to/your/installation_wizard.png)
+
+### Step 5: Complete the Installation
+- After the installation is complete, you can launch Git Bash from the Start menu or desktop shortcut.
+
+By following these steps, you can successfully install Git Bash on your bastion host, enabling you to manage your code repositories directly from the server.
