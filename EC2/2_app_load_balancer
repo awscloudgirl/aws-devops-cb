@@ -88,6 +88,7 @@ User data scripts are used to automate the configuration of EC2 instances during
 
 By following these steps, you will have two web servers running on AWS EC2, each configured to serve web content using Apache. Ensure that your security groups are properly configured to allow traffic to your instances.
 ```
+```markdown
 # Creating an Application Load Balancer (ALB) on AWS
 
 An Application Load Balancer (ALB) operates at the application layer (Layer 7) and provides advanced routing capabilities, including path-based and host-based routing. It is ideal for web applications and microservices.
@@ -119,26 +120,36 @@ An Application Load Balancer (ALB) operates at the application layer (Layer 7) a
 
 6. **Configure Listeners and Routing**
    - Add a listener for HTTP on port 80.
-   - Create or select a target group for routing traffic.
+   - Click "Create target group" to set up routing.
    - ![](/images/alb-listeners-routing.png)
 
-7. **Configure Health Checks**
+7. **Create Target Group**
+   - **Target Group Name**: Enter a name (e.g., `tg80`).
+   - **Protocol**: HTTP
+   - **Port**: 80
+   - **IP Address Type**: IPv4
+   - **VPC**: Select the appropriate VPC.
+   - ![](/images/alb-target-group.png)
+
+8. **Configure Health Checks**
    - Set up health checks to monitor the health of your targets.
    - **Protocol**: HTTP
    - **Path**: `/` (or another path to check)
    - **Port**: 80
    - ![](/images/alb-health-checks.png)
 
-8. **Register Targets**
+9. **Register Targets**
    - Select the instances you want to include in the target group.
    - Ensure they are in the running state and associated with the correct security group.
    - ![](/images/alb-register-targets.png)
 
-9. **Review and Create**
-   - Review all settings to ensure they are correct.
-   - Click "Create Load Balancer" to finalize the setup.
-   - ![](/images/alb-create.png)
+10. **Review and Create**
+    - Review all settings to ensure they are correct.
+    - Click "Create Load Balancer" to finalize the setup.
+    - ![](/images/alb-create.png)
 
 ## Conclusion
 
 By following these steps, you will have successfully created an Application Load Balancer on AWS, capable of distributing incoming traffic across multiple targets to ensure high availability and reliability.
+
+To test the functionality of your Application Load Balancer (ALB) with the DNS name `alb-1285027674.us-east-1.elb.amazonaws.com`, you can perform a simple connectivity test. Open a web browser and enter the ALB's DNS name in the address bar. If the ALB is correctly configured and the target instances are healthy, you should see the web page served by your instances. This confirms that the ALB is successfully distributing traffic to the registered targets, ensuring high availability and reliability for your application.
