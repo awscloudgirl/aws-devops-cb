@@ -544,31 +544,33 @@ Follow these steps to connect to your Windows bastion host using Remote Desktop 
 ### Step 1: Retrieve the RDP File
 - **Download the RDP File**: Access the AWS Management Console, navigate to your EC2 instance, and download the RDP file.
 - 
-  - ![Download RDP File](/images/rdp-download.png)
+![Download RDP File](/images/rdp-download.png)
 
 ### Step 2: Decrypt the Windows Password
 - **Get the Password**: Use your private key to decrypt the Windows administrator password.
 - 
-  - ![Decrypt Password](/images/decrypt-password.png)
+![Decrypt Password](/images/decrypt-password.png)
 
 ### Step 3: Open the RDP Client
 - **Launch the RDP Client**: Open the downloaded RDP file with your RDP client.
 - 
-  - ![Open RDP Client](/images/open_rdp_client.png)
+![Open RDP Client](/images/open_rdp_client.png)
 
 ### Step 4: Enter Credentials
 - **Enter Username and Password**: Use "Administrator" as the username and the decrypted password.
 - 
-  - ![Enter Credentials](/images/enter_credentials.png)
+![Enter Credentials](/images/enter_credentials.png)
 
 ### Step 5: Accept Security Certificate
 - **Accept the Certificate**: If prompted, accept the security certificate to proceed.
 
-  - ![Accept Certificate](/images/accept_certificate.png)
+![Accept Certificate](/images/accept_certificate.png)
 
 ### Step 6: Access the Bastion Host
 - **Connect to the Desktop**: You should now see the Windows desktop of your bastion host.
-  - ![Access Bastion Host](/images/access_bastion_host.png)
+
+![Access Bastion Host](/images/access_bastion_host.png)
+
 ## Downloading and Installing Git Bash on the Bastion Host
 
 To manage your repositories and perform version control tasks, you can download and install Git Bash on your Windows bastion host. Follow these steps:
@@ -578,11 +580,13 @@ To manage your repositories and perform version control tasks, you can download 
 
 ### Step 2: Download Git for Windows
 - Click on the "Download for Windows" button to start downloading the Git installer.
-  - ![Download Git for Windows](/images/Git_Download_Page.png)
+
+![Download Git for Windows](/images/Git_Download_Page.png)
 
 ### Step 3: Run the Installer
 - Once the download is complete, open the downloaded `.exe` file to start the installation process.
-  - ![Run Git Installer](/images/Git_Installer_Setup.png)
+
+![Run Git Installer](/images/Git_Installer_Setup.png)
 
 ### Step 4: Follow the Installation Wizard
 - Proceed through the installation wizard by clicking "Next" and accepting the default settings. This will install Git Bash on your system.
