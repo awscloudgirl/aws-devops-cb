@@ -58,7 +58,6 @@ This documentation provides a step-by-step guide for creating an Amazon RDS (Rel
 
 ### 12. Create Database
 - Finally, click the **Create Database** button to complete the setup process.
-  ![Create Database Button](/images/create_database_button.png) 
 
 ## Conclusion
 By following these steps, you can successfully create a MySQL database in Amazon RDS. Ensure to review each option carefully to tailor the database to your specific needs. For further assistance, refer to the AWS documentation or community forums.
