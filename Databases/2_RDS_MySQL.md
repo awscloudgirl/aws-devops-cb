@@ -3,7 +3,7 @@
 ## Introduction
 This documentation provides a step-by-step guide for setting up an Amazon RDS database and configuring MySQL Workbench to connect to it. It also includes SQL queries used during the process and their meanings.
 
-## Steps to Configure RDS and MySQL Workbench
+## Steps to Configure RDS and MySQL Workbench 
 
 ### 1. Open the RDS Documentation
 - Access the RDS dashboard in your AWS Management Console.
