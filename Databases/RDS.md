@@ -11,7 +11,7 @@ This documentation provides a step-by-step guide for creating an Amazon RDS (Rel
 
 ### 2. Create a Database
 - Click on the **Create Database** button to initiate the setup process.
-  ![](/images/create_database.png) 
+  ![Create_Database](/images/create_database.png) 
 
 ### 3. Choose the Creation Method
 - **Standard**: Select this option to customize your database settings.
