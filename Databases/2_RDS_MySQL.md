@@ -12,7 +12,7 @@ This documentation provides a step-by-step guide for setting up an Amazon RDS da
 - Open the **Security Group** associated with your RDS instance.
 - Add **MySQL/Aurora** to the inbound rules to allow connections.
 
-![Inbound Rules](images/inbound_rules.png)
+![Inbound Rules](/images/inbound_rules.png)
 
 ### 3. Download MySQL Workbench
 - Download MySQL Workbench from the official website: [MySQL Workbench Download](https://dev.mysql.com/downloads/workbench/).
@@ -27,7 +27,7 @@ This documentation provides a step-by-step guide for setting up an Amazon RDS da
 ### 6. View Schemas
 - After a successful connection, click on the **Schemas** tab to see the schemas created in your RDS instance.
 
-![Schemas Tab](images/schemas_tab.png)
+![Schemas Tab](/images/schemas_tab.png)
 
 ### 7. Execute SQL Queries
 - Use the following SQL queries to interact with your database:
@@ -39,7 +39,7 @@ show databases;
 
 - **Meaning**: This command lists all databases available in the MySQL server.
 
-![Show Databases Query](images/show_databases_query.png)
+![Show Databases Query](/images/show_databases_query.png)
 
 #### Query 2: Select Users
 sql
