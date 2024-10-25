@@ -80,7 +80,7 @@ A company is building a real-time data analytics application that processes a la
 
 Run the following command to create the DynamoDB table:
 
-bash
+```bash
 aws dynamodb create-table 
 
 --table-name Transactions 
@@ -90,13 +90,13 @@ aws dynamodb create-table
 --key-schema AttributeName=TransactionID,KeyType=HASH AttributeName=Timestamp,KeyType=RANGE 
 
 --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
-
+```
 
 ### Insert Data
 
 Use the following command to insert a record into the DynamoDB table:
 
-bash
+```bash
 aws dynamodb put-item 
 
 --table-name Transactions 
@@ -108,7 +108,7 @@ aws dynamodb put-item
 "Amount": {"N": "100"},
 "PaymentMethod": {"S": "CreditCard"}
 }'
-
+```
 
 ### Query Data
 
