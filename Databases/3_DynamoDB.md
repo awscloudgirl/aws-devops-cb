@@ -17,7 +17,7 @@ A company is building a real-time data analytics application that processes a la
 
 2. Click on **Create table**.
 
-![Create Table Button](images/create_table.png)
+![Create Table Button](/images/create_table.png)
 
 3. Enter the table name as `Transactions`.
 
@@ -25,29 +25,27 @@ A company is building a real-time data analytics application that processes a la
    - **Partition Key**: `TransactionID` (String)
    - **Sort Key**: `Timestamp` (Number)
 
-![Create Table Configuration](images/create_table_button.png)
+![Create Table Configuration](/images/create_table_button.png)
 
 5. Configure the read and write capacity. You can use the **Capacity calculator** to estimate your needs.
 
-![Capacity Calculator](images/capacity_calculator.png)
+![Capacity Calculator](/images/capacity_calculator.png)
 
 6. Optionally, enable **Deletion protection** to prevent accidental deletion of the table.
 
-![Deletion Protection](images/deletion_protection.png)
+![Deletion Protection](/images/deletion_protection.png)
 
 7. Click **Create** to create the table.
-
-![Creating Table](images/creating_table.png)
 
 ### Step 3: Insert Data into the Table
 
 1. After the table is created, navigate to the **Items** tab.
 
-![Items Tab](images/items_tab.png)
+![Items Tab](/images/items_tab.png)
 
 2. Click on **Create item**.
 
-![Create Item Button](images/create_item_button.png)
+![Create Item Button](/images/create_item_button.png)
 
 3. Add the following attributes:
    - `TransactionID` (String)
@@ -56,7 +54,7 @@ A company is building a real-time data analytics application that processes a la
    - `Amount` (Number)
    - `PaymentMethod` (String)
 
-![Create Item Form](images/create_item_form.png)
+![Create Item Form](/images/create_item_form.png)
 
 4. Click **Create item** to save the record.
 
@@ -64,7 +62,7 @@ A company is building a real-time data analytics application that processes a la
 
 1. Go back to the **Tables** tab to see your newly created table.
 
-![Tables Overview](images/tables_overview.png)
+![Tables Overview](/images/tables_overview.png)
 
 2. Ensure the status shows as **Active**.
 
@@ -72,7 +70,7 @@ A company is building a real-time data analytics application that processes a la
 
 1. In the **Items** tab, use the **Query** button to retrieve records based on the `TransactionID`.
 
-![Query Button](images/query_button.png)
+![Query Button](/images/query_button.png)
 
 ## AWS CLI Commands for DynamoDB Setup
 
