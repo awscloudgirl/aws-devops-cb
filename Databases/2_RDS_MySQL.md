@@ -34,17 +34,17 @@ This documentation provides a step-by-step guide for setting up an Amazon RDS da
 
 #### Query 1: Show Databases
 
-sql
+```sql
 show databases;
-
+```
 - **Meaning**: This command lists all databases available in the MySQL server.
 
 ![Show Databases Query](/images/show_databases_query.png)
 
 #### Query 2: Select Users
-sql
+```sql
 select * from mysql.user;
-
+```
 - **Meaning**: This command retrieves all user accounts and their privileges from the MySQL user table.
 
 ### Overview of Cloud/DevOps Engineer's Role with Databases
