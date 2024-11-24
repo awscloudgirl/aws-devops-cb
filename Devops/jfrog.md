@@ -1,108 +1,107 @@
-# JFrog Artifactory Setup on AWS
+# JFrog Artifactory Setup Instructions
 
-This guide details the steps to launch an AWS instance and configure JFrog Artifactory on Ubuntu.
-
-## Launch AWS Instance
+## AWS Launch Instance
 
 - **Instance Name:** `jfrog.cloudbinary.io`
-- **OS:** Ubuntu
+- **Operating System:** Ubuntu
 - **Instance Type:** t2.micro
 
-## Initial Server Setup
+## Configuration Steps
 
-### Set Timezone
+### Set Time & Date
 
 ```bash
 sudo timedatectl set-timezone Europe/London
 ```
 
-### Configure Hostname
+### Setup Hostname
 
 ```bash
 sudo hostnamectl set-hostname "jfrog.cloudbinary.io"
 ```
 
-### Update `/etc/hosts`
+### Configure Hostname in Hosts File
 
 ```bash
 echo "`hostname -I` `hostname`" >> /etc/hosts
 echo "`hostname -I | awk '{ print $1}'` `hostname`" >> /etc/hosts
 ```
 
-### Update Repositories
+### Update the Repository
 
 ```bash
 sudo apt-get update
 ```
 
-### Install Essential Utilities
-
-For Ubuntu:
+### Install Required Utility Software for Ubuntu
 
 ```bash
 sudo apt-get install vim curl elinks unzip wget tree git -y
 ```
 
-## Install Java
-
-For Ubuntu:
+### Download and Install Java 17 for Ubuntu
 
 ```bash
 sudo apt-get install openjdk-17-jdk -y
 ```
 
-## Environment Setup
-
-### Backup Environment File
+### Backup the Environment File
 
 ```bash
 sudo cp -pvr /etc/environment "/etc/environment_$(date +%F_%R)"
 ```
 
-### Set JAVA_HOME
-
-For Ubuntu:
+### Create JAVA_HOME Environment Variable for Ubuntu
 
 ```bash
 echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/" >> /etc/environment
 source /etc/environment
 ```
 
-## Download and Install JFrog Artifactory
+### Download JFROG Software
 
 ```bash
 sudo wget https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/jfrog-artifactory-oss/[RELEASE]/jfrog-artifactory-oss-[RELEASE]-linux.tar.gz
-tar xvzf jfrog-artifactory-oss-[RELEASE]-linux.tar.gz 
+```
+
+### Extract the Tar File
+
+```bash
+tar xvzf jfrog-artifactory-oss-[RELEASE]-linux.tar.gz
+```
+
+### Move the Tar File to /opt/jfrog
+
+```bash
 mv artifactory-oss-7.98.8/ /opt/jfrog
 ```
 
-### Configure JFROG_HOME
+### Set JFROG_HOME Environment Variable
 
 ```bash
 echo "JFROG_HOME=/opt/jfrog" >> /etc/environment
-source /etc/environment
+cat /etc/environment
 ```
 
-## Manage Artifactory Service
-
-### Start JFrog Artifactory
+### Start JFROG Artifactory
 
 ```bash
 cd /opt/jfrog/app/bin/
+./artifactory.sh status
 ./artifactory.sh start
 ```
 
-### Configure systemd Service
+### Configure INIT Scripts for JFrog Artifactory
 
 ```bash
 sudo vi /etc/systemd/system/artifactory.service
 ```
 
-Insert the following configuration:
+Insert the following configuration into the file:
 
-```plaintext
+```ini
 [Unit]
-Description=JFrog Artifactory service
+Description=JFrog artifactory service
 After=syslog.target network.target
 
 [Service]
@@ -110,30 +109,48 @@ Type=forking
 ExecStart=/opt/jfrog/app/bin/artifactory.sh start
 ExecStop=/opt/jfrog/app/bin/artifactory.sh stop
 User=root
-Group=root
+Group=root 
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-### Enable and Manage Service
+### Enable and Check Status of JFrog Artifactory
 
 ```bash
-systemctl daemon-reload
 systemctl enable artifactory.service
-systemctl start artifactory.service
 systemctl status artifactory.service
 ```
 
-## Cleanup
+### Modify Instance Security Settings
+
+Update the inbound rules as necessary to secure the service.
+
+### Manage JFrog Service
+
+Commands to manage the Artifactory service:
 
 ```bash
-rm -rf /path/to/jfrog-artifactory-oss-[RELEASE]/
+systemctl daemon-reload
+sudo systemctl status artifactory.service
+sudo systemctl stop artifactory.service
+sudo systemctl start artifactory.service
+sudo systemctl restart artifactory.service
+sudo systemctl enable artifactory.service
 ```
 
-## Security Settings
+### Remove Directory
 
-Remember to adjust the security settings of your AWS instance as necessary to allow appropriate traffic.
+```bash
+rm -rf jfrog/
+```
 
+### Re-download and Extract JFrog Software (Specific Version)
 
+```bash
+sudo wget https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/jfrog-artifactory-oss/7.9.0/jfrog-artifactory-oss-7.9.0-linux.tar.gz
+tar xvzf jfrog-artifactory-oss-7.9.0-linux.tar.gz
+rm -rf jfrog-artifactory-oss-7.9.0-linux.tar.gz
+mv artifactory-oss-7.9.0/ jfrog
+```
