@@ -1,5 +1,7 @@
 # JFrog Artifactory Setup Instructions
 
+JFrog Artifactory is a highly versatile artifact repository manager that simplifies the management of binary resources across software development environments. As an integral part of DevOps toolchains, it enhances the efficiency of continuous integration and delivery processes by providing a robust platform for versioning and storing artifacts like Docker containers, Java archives, and more. The following documentation guides you through the process of setting up JFrog Artifactory on an AWS instance. This setup involves configuring the server, installing necessary software, and ensuring that the system is optimized for secure and efficient artifact management.
+
 ## AWS Launch Instance
 
 - **Instance Name:** `jfrog.cloudbinary.io`
