@@ -136,5 +136,4 @@ rm -rf /path/to/jfrog-artifactory-oss-[RELEASE]/
 
 Remember to adjust the security settings of your AWS instance as necessary to allow appropriate traffic.
 
-```
 
