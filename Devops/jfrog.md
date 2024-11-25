@@ -6,7 +6,7 @@ JFrog Artifactory is a highly versatile artifact repository manager that simplif
 
 - **Instance Name:** `jfrog.cloudbinary.io`
 - **Operating System:** Ubuntu
-- **Instance Type:** t2.micro
+- **Instance Type:** t2.medium
 
 ## Configuration Steps
 
