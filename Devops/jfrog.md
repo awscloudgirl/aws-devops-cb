@@ -128,6 +128,7 @@ systemctl status artifactory.service
 ### Modify Instance Security Settings
 
 Update the inbound rules as necessary to secure the service.
+![jfrog_security](/images/jfrog-security)
 
 ### Manage JFrog Service
 
