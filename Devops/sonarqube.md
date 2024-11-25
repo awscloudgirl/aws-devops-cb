@@ -130,7 +130,7 @@ Add inbound rules to the EC2 instance:
 
 - **HTTP:** Port 80
 - **Custom:** Port 9000
-![sonar](/images/sonarqube-security)
+![sonar](/images/sonarqube-security.png)
 
 ### Verification
 
