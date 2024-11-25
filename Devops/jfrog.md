@@ -72,6 +72,12 @@ sudo wget https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifact
 tar xvzf jfrog-artifactory-oss-[RELEASE]-linux.tar.gz
 ```
 
+### Remove the Tar File
+
+```bash
+rm -f jfrog-artifactory-oss-[RELEASE]-linux.tar.gz
+```
+
 ### Move the Tar File to /opt/jfrog
 
 ```bash
