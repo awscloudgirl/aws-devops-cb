@@ -132,6 +132,3 @@ vi /opt/tomcat/webapps/host-manager/META-INF/context.xml
 ## Conclusion
 
 This setup guide provides a comprehensive approach to deploying Apache Tomcat on an AWS EC2 instance, ensuring your applications are served in a secure and efficient environment.
-```
-
-This documentation provides clear instructions for setting up Tomcat in a structured format suitable for GitHub. Adjust the actual hostname and paths as needed based on your configuration.
